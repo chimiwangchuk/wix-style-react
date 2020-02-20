@@ -41,12 +41,16 @@ export default {
   exampleProps: {
     status: [
       {
-        label: 'Warning',
-        value: InputArea.StatusWarning,
+        label: 'Error',
+        value: 'error',
       },
       {
-        label: 'Error',
-        value: InputArea.StatusError,
+        label: 'Warning',
+        value: 'warning',
+      },
+      {
+        label: 'Loading',
+        value: 'loading',
       },
     ],
   },

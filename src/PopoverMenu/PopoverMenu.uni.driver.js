@@ -1,6 +1,7 @@
-import { dropdownBaseDriverFactory } from '../../DropdownBase/DropdownBase.uni.driver';
-import { dropdownLayoutDriverFactory } from '../../DropdownLayout/DropdownLayout.uni.driver';
-import popoverCommonDriverFactory from '../../Popover/Popover.common.uni.driver';
+import { dropdownBaseDriverFactory } from '../DropdownBase/DropdownBase.uni.driver';
+import { dropdownLayoutDriverFactory } from '../DropdownLayout/DropdownLayout.uni.driver';
+import popoverCommonDriverFactory from '../Popover/Popover.common.uni.driver';
+import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 
 export const PopoverMenuDriver = (base, body) => {
   const dropdownBaseTestkit = dropdownBaseDriverFactory(base, body);
@@ -16,6 +17,7 @@ export const PopoverMenuDriver = (base, body) => {
     popoverCommonDriverFactory(base, body).getContentElement();
 
   return {
+    ...baseUniDriverFactory(base),
     /** Returns true of popoverMenu exists */
     exists: () => dropdownBaseTestkit.exists(),
     /** Returns trigger element */

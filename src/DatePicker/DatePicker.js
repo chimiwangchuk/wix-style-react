@@ -302,11 +302,11 @@ DatePicker.propTypes = {
   /** Controls the whether the calendar will be initially visible or not */
   initialOpen: PropTypes.bool,
 
-  /** will show exclamation icon when true */
-  error: PropTypes.bool,
+  /** Sets UI to indicate a status */
+  status: PropTypes.oneOf(['error', 'warning', 'loading']),
 
-  /** will display message when hovering error icon */
-  errorMessage: PropTypes.node,
+  /** The status message to display when hovering the status icon, if not given or empty there will be no tooltip */
+  statusMessage: PropTypes.node,
 
   /** set desired width of DatePicker input */
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

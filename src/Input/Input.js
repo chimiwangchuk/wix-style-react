@@ -30,27 +30,6 @@ class Input extends Component {
     super(props);
     this._isMounted = false;
     this.logDeprecations(props);
-
-    if (props.hasOwnProperty('error') || props.hasOwnProperty('errorMessage')) {
-      deprecationLog(
-        '<Input/> - error and errorMessage props are deprecated. Please use status="error" and statusMessage instead.',
-      );
-    }
-
-    if (props.hasOwnProperty('help') || props.hasOwnProperty('helpMessage')) {
-      deprecationLog(
-        '<Input/> - help and helpMessage props are deprecated. Please use <FormField/> as a wrapper instead.',
-      );
-    }
-
-    if (
-      props.hasOwnProperty('theme') &&
-      !['normal', 'tags'].includes(props.theme)
-    ) {
-      deprecationLog(
-        '<Input/> - theme prop is deprecated, please contact us or your UX if needed.',
-      );
-    }
   }
 
   componentDidMount() {
@@ -78,9 +57,9 @@ class Input extends Component {
   };
 
   logDeprecations(props) {
-    if (props.magnifyingGlass) {
+    if (props.help) {
       deprecationLog(
-        `Input's magnifyingGlass prop is deprecated and will be removed in the next major release, please use suffix property with '<Input suffix={<Input.Affix><Search /></Input.Affix>}/>' instead`,
+        `Input's help prop is deprecated and will be removed in the next major release, please '<FormField infoContent="content"><Input /></FormField>'  instead`,
       );
     }
 
@@ -119,7 +98,6 @@ class Input extends Component {
       help,
       placeholder,
       helpMessage,
-      magnifyingGlass,
       menuArrow,
       defaultValue,
       tabIndex,
@@ -181,7 +159,6 @@ class Input extends Component {
       statusMessage: suffixStatusMessage,
       disabled,
       help,
-      magnifyingGlass,
       isClearButtonVisible,
       menuArrow,
       suffix,
@@ -262,7 +239,6 @@ class Input extends Component {
               help={help}
               helpMessage={helpMessage}
               onIconClicked={onIconClicked}
-              magnifyingGlass={magnifyingGlass}
               isClearButtonVisible={isClearButtonVisible}
               onClear={this.handleSuffixOnClear}
               menuArrow={menuArrow}

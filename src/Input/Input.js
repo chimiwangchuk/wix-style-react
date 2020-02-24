@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Ticker from './Ticker';
-import Unit from './Unit';
 import IconAffix from './IconAffix';
 import Affix from './Affix';
 import Group from './Group';
@@ -15,7 +14,6 @@ import { InputContext } from './InputContext';
 
 class Input extends Component {
   static Ticker = Ticker;
-  static Unit = Unit;
   static IconAffix = IconAffix;
   static Affix = Affix;
   static Group = Group;
@@ -80,11 +78,6 @@ class Input extends Component {
   };
 
   logDeprecations(props) {
-    if (props.unit) {
-      deprecationLog(
-        `Input's unit prop is deprecated and will be removed in the next major release, please use suffix property with '<Input suffix={<Input.Affix>${props.unit}</Input.Affix>}/>' instead`,
-      );
-    }
     if (props.magnifyingGlass) {
       deprecationLog(
         `Input's magnifyingGlass prop is deprecated and will be removed in the next major release, please use suffix property with '<Input suffix={<Input.Affix><Search /></Input.Affix>}/>' instead`,
@@ -126,7 +119,6 @@ class Input extends Component {
       help,
       placeholder,
       helpMessage,
-      unit,
       magnifyingGlass,
       menuArrow,
       defaultValue,
@@ -192,7 +184,6 @@ class Input extends Component {
       magnifyingGlass,
       isClearButtonVisible,
       menuArrow,
-      unit,
       suffix,
     });
 
@@ -275,7 +266,6 @@ class Input extends Component {
               isClearButtonVisible={isClearButtonVisible}
               onClear={this.handleSuffixOnClear}
               menuArrow={menuArrow}
-              unit={unit}
               focused={this.state.focus}
               suffix={suffix}
               tooltipPlacement={tooltipPlacement}

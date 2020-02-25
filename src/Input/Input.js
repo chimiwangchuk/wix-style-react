@@ -57,12 +57,6 @@ class Input extends Component {
   };
 
   logDeprecations(props) {
-    if (props.help) {
-      deprecationLog(
-        `Input's help prop is deprecated and will be removed in the next major release, please '<FormField infoContent="content"><Input /></FormField>'  instead`,
-      );
-    }
-
     if (
       this._isClearFeatureEnabled &&
       this._isControlled &&
@@ -95,9 +89,7 @@ class Input extends Component {
       id,
       name,
       value,
-      help,
       placeholder,
-      helpMessage,
       menuArrow,
       defaultValue,
       tabIndex,
@@ -158,7 +150,6 @@ class Input extends Component {
       status: suffixStatus,
       statusMessage: suffixStatusMessage,
       disabled,
-      help,
       isClearButtonVisible,
       menuArrow,
       suffix,
@@ -236,8 +227,6 @@ class Input extends Component {
               statusMessage={suffixStatusMessage}
               theme={theme}
               disabled={disabled}
-              help={help}
-              helpMessage={helpMessage}
               onIconClicked={onIconClicked}
               isClearButtonVisible={isClearButtonVisible}
               onClear={this.handleSuffixOnClear}
@@ -408,6 +397,8 @@ Input.defaultProps = {
   autoSelect: true,
   size: 'normal',
   theme: 'normal',
+  statusMessage: '',
+  errorMessage: '',
   roundInput: false,
   textOverflow: 'clip',
   maxLength: 524288,
@@ -481,11 +472,6 @@ Input.propTypes = {
   forceFocus: PropTypes.bool,
   forceHover: PropTypes.bool,
 
-  /** Adding a suffix help icon */
-  help: PropTypes.bool,
-
-  /** The help message to display when hovering the help icon, if not given or empty there will be no tooltip */
-  helpMessage: PropTypes.node,
   id: PropTypes.string,
 
   /** Input max length */

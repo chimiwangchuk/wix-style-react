@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Loadable } from 'wix-ui-core/dist/src/components/loadable';
 import FormFieldError from 'wix-ui-icons-common/system/FormFieldError';
 import FormFieldErrorSmall from 'wix-ui-icons-common/system/FormFieldErrorSmall';
 import ToggleOn from 'wix-ui-icons-common/system/ToggleOn';
@@ -10,7 +9,7 @@ import CircleLoaderCheckSmall from 'wix-ui-icons-common/system/CircleLoaderCheck
 import Arc from './Arc';
 import css from './Loader.scss';
 import Heading from '../Heading';
-import deprecationLog from '../utils/deprecationLog';
+import Tooltip from '../Tooltip';
 
 const arcsAngles = {
   tiny: {
@@ -80,9 +79,6 @@ class Loader extends React.PureComponent {
 
     /** Text to be shown in the tooltip **/
     statusMessage: PropTypes.string,
-
-    /** load Tooltip async using dynamic import */
-    shouldLoadAsync: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -90,16 +86,6 @@ class Loader extends React.PureComponent {
     color: 'blue',
     status: 'loading',
   };
-
-  constructor(props) {
-    super(props);
-
-    if (props.hasOwnProperty('shouldLoadAsync')) {
-      deprecationLog(
-        '<Loader/> - shouldLoadAsync prop is deprecated. Just remove it, no other change required.',
-      );
-    }
-  }
 
   render() {
     const { dataHook, size, color, text, status, statusMessage } = this.props;
@@ -155,26 +141,20 @@ class Loader extends React.PureComponent {
           css[status],
         )}
       >
-        <Loadable
-          loader={{
-            Tooltip: () =>
-              this.props.shouldLoadAsync
-                ? import(
-                    /* webpackChunkName: "wsr-tooltip" */ '../Tooltip/TooltipNext'
-                  )
-                : require('../Tooltip/TooltipNext'),
-          }}
-          defaultComponent={loader}
-          shouldLoadComponent={statusMessage}
-        >
-          {({ Tooltip }) => {
-            return (
-              <Tooltip dataHook="loader-tooltip" content={statusMessage}>
-                {loader}
-              </Tooltip>
-            );
-          }}
-        </Loadable>
+        {statusMessage ? (
+          <Tooltip
+            upgrade
+            content={statusMessage}
+            appendTo="window"
+            dataHook="loader-tooltip"
+          >
+            {loader}
+          </Tooltip>
+        ) : (
+          loader
+        )}
+
+        {/* Footer Text */}
         {shouldShowText && text && (
           <div className={css.text}>
             <Heading appearance="H6" dataHook="loader-text">

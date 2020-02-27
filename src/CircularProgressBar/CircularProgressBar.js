@@ -4,11 +4,10 @@ import CircleLoaderCheck from 'wix-ui-icons-common/system/CircleLoaderCheck';
 import CircleLoaderCheckSmall from 'wix-ui-icons-common/system/CircleLoaderCheckSmall';
 import FormFieldError from 'wix-ui-icons-common/system/FormFieldError';
 import FormFieldErrorSmall from 'wix-ui-icons-common/system/FormFieldErrorSmall';
+import Tooltip from '../Tooltip';
 import style from './CircularProgressBar.st.css';
 import PropTypes from 'prop-types';
-import { Loadable } from 'wix-ui-core/dist/src/components/loadable';
 import { dataHooks, Size, sizesMap } from './constants';
-import deprecationLog from '../utils/deprecationLog';
 
 const sizeToSuccessIcon = {
   [Size.small]: <CircleLoaderCheckSmall />,
@@ -23,27 +22,10 @@ const sizeToErrorIcon = {
 };
 
 class CircularProgressBar extends React.PureComponent {
-  constructor(props) {
-    super(props);
+  _renderProgressBar() {
+    const { light, size, ...otherProps } = this.props;
 
-    if (props.hasOwnProperty('shouldLoadAsync')) {
-      deprecationLog(
-        '<CircularProgressBar/> - shouldLoadAsync prop is deprecated. Just remove it, no other change required.',
-      );
-    }
-  }
-
-  render() {
-    const {
-      errorMessage,
-      light,
-      size,
-      dataHook,
-      shouldLoadAsync,
-      ...otherProps
-    } = this.props;
-
-    const ProgressBar = (
+    return (
       <CoreCircularProgressBar
         {...style('progressBar', { light, size }, this.props)}
         {...otherProps}
@@ -54,34 +36,20 @@ class CircularProgressBar extends React.PureComponent {
         errorIcon={sizeToErrorIcon[size]}
       />
     );
+  }
+
+  render() {
+    const { dataHook, error, errorMessage } = this.props;
 
     return (
       <div data-hook={dataHook} {...style('root', {}, this.props)}>
-        <Loadable
-          loader={{
-            Tooltip: () =>
-              // TODO: convert to WSR Tooltip
-              shouldLoadAsync
-                ? import(
-                    /* webpackChunkName: "wsr-tooltip" */ '../Tooltip/TooltipNext'
-                  )
-                : require('../Tooltip/TooltipNext'),
-          }}
-          defaultComponent={ProgressBar}
-          shouldLoadComponent={this.props.error && errorMessage}
-        >
-          {({ Tooltip }) => {
-            return (
-              <Tooltip
-                data-hook={dataHooks.tooltip}
-                placement="top"
-                content={errorMessage}
-              >
-                {ProgressBar}
-              </Tooltip>
-            );
-          }}
-        </Loadable>
+        {error && errorMessage ? (
+          <Tooltip upgrade content={errorMessage} dataHook={dataHooks.tooltip}>
+            {this._renderProgressBar()}
+          </Tooltip>
+        ) : (
+          this._renderProgressBar()
+        )}
       </div>
     );
   }
@@ -113,12 +81,9 @@ CircularProgressBar.propTypes = {
   size: PropTypes.string,
 
   /** The number of the percentage progress */
-  value: PropTypes.number || PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   dataHook: PropTypes.string,
-
-  /** @deprecated load Tooltip async using dynamic import */
-  shouldLoadAsync: PropTypes.bool,
 };
 
 export default CircularProgressBar;

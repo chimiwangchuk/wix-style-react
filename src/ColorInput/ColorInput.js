@@ -6,7 +6,6 @@ import { Hash } from './components/Hash';
 import { ColorViewer } from './components/ColorViewer';
 
 import { validateHex, normalizeHexInput } from './hex-helpers';
-import deprecationLog from '../utils/deprecationLog';
 
 class ColorInput extends React.Component {
   static displayName = 'ColorInput';
@@ -20,10 +19,6 @@ class ColorInput extends React.Component {
     status: PropTypes.oneOf(['error', 'warning', 'loading']),
     /** The status message to display when hovering the status icon, if not given or empty there will be no tooltip */
     statusMessage: PropTypes.node,
-    /** @deprecated - use status prop instead */
-    error: PropTypes.bool,
-    /** @deprecated - use statusMessage prop instead */
-    errorMessage: PropTypes.node,
     /** input size */
     size: PropTypes.oneOf(['small', 'medium', 'large']),
     /** colorpicker popover placement */
@@ -87,24 +82,6 @@ class ColorInput extends React.Component {
       previous: props.value,
       value: '',
     };
-
-    if (props.hasOwnProperty('error') || props.hasOwnProperty('errorMessage')) {
-      deprecationLog(
-        '<ColorInput/> - error and errorMessage props are deprecated. Please use status="error" and statusMessage instead.',
-      );
-    }
-
-    if (props.hasOwnProperty('help') || props.hasOwnProperty('helpMessage')) {
-      deprecationLog(
-        '<ColorInput/> - help and helpMessage props are deprecated. Please use <FormField/> as a wrapper instead.',
-      );
-    }
-
-    if (props.hasOwnProperty('theme') && props.theme !== 'normal') {
-      deprecationLog(
-        '<ColorInput/> - theme prop is deprecated, please contact us or your UX if needed.',
-      );
-    }
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -206,22 +183,12 @@ class ColorInput extends React.Component {
   };
 
   render() {
-    const {
-      placeholder,
-      errorMessage,
-      statusMessage,
-      status,
-      error,
-      size,
-      ...rest
-    } = this.props;
+    const { placeholder, size, ...rest } = this.props;
     const { active, value } = this.state;
     return (
       <Input
         {...rest}
         ref={input => (this.input = input)}
-        status={status || (error ? 'error' : undefined)}
-        statusMessage={statusMessage || errorMessage}
         placeholder={active ? '' : placeholder}
         size={size}
         onKeyDown={this._keyDown}

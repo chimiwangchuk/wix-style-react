@@ -7,7 +7,6 @@ import InfiniteScroll from '../utils/InfiniteScroll';
 import scrollIntoView from '../utils/scrollIntoView';
 import * as DataAttr from './DataAttr';
 import styles from './DropdownLayout.scss';
-import deprecationLog from '../utils/deprecationLog';
 
 const modulu = (n, m) => {
   const remain = n % m;
@@ -32,12 +31,6 @@ class DropdownLayout extends WixComponent {
       hovered: NOT_HOVERED_INDEX,
       selectedId: props.selectedId,
     };
-
-    if (props.hasOwnProperty('theme') && props.theme !== 'normal') {
-      deprecationLog(
-        '<DropdownLayout/> - theme prop is deprecated, please contact us or your UX if needed.',
-      );
-    }
 
     this._onSelect = this._onSelect.bind(this);
     this._onMouseLeave = this._onMouseLeave.bind(this);
@@ -286,10 +279,7 @@ class DropdownLayout extends WixComponent {
     return (
       <div
         tabIndex={tabIndex}
-        className={classNames(
-          styles.wrapper,
-          styles[`theme-${this.props.theme}`],
-        )}
+        className={classNames(styles.wrapper)}
         onKeyDown={this._onKeyDown}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -513,8 +503,6 @@ DropdownLayout.propTypes = {
   /** The id of the selected option in the list  */
   selectedId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   tabIndex: PropTypes.number,
-  /** @deprecated */
-  theme: PropTypes.string,
   onClickOutside: PropTypes.func,
   /** A fixed header to the list */
   fixedHeader: PropTypes.node,

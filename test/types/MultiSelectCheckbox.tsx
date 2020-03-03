@@ -31,8 +31,6 @@ function MultiSelectCheckboxWithAllProps() {
       disabled
       forceFocus
       forceHover
-      help
-      helpMessage="msg"
       hideStatusSuffix
       id="1"
       max={10}
@@ -53,7 +51,6 @@ function MultiSelectCheckboxWithAllProps() {
       onKeyDown={_ev => {}}
       onKeyUp={_ev => {}}
       onPaste={_ev => {}}
-      onTooltipShow={() => {}}
       placeholder="placeholder"
       prefix={<div />}
       readOnly
@@ -68,8 +65,6 @@ function MultiSelectCheckboxWithAllProps() {
       suffix={<div />}
       tabIndex={0}
       textOverflow="clip"
-      theme="amaterial"
-      title="title"
       tooltipPlacement="bottom"
       type="text"
       updateControlledOnClear

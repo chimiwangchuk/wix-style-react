@@ -37,7 +37,12 @@ class ImageViewer extends Component {
   }
 
   _renderAddImage = () => {
-    const { onAddImage, addImageInfo, tooltipProps, disabled } = this.props;
+    const {
+      onAddImage,
+      addImageInfo,
+      tooltipProps = {},
+      disabled,
+    } = this.props;
 
     return (
       <AddItem

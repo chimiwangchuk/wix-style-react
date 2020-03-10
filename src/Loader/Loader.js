@@ -143,7 +143,6 @@ class Loader extends React.PureComponent {
       >
         {statusMessage ? (
           <Tooltip
-            upgrade
             content={statusMessage}
             appendTo="window"
             dataHook="loader-tooltip"

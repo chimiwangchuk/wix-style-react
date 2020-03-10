@@ -6,7 +6,6 @@ export interface FillButtonProps
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   iconSize?: FillButtonIconSize;
   disabled?: boolean;
-  tooltipContent?: React.ReactNode;
   fill?: string;
   tooltipProps?: TooltipCommonProps;
   dataHook?: string;

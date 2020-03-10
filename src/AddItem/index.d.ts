@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { TooltipCommonProps } from '../common';
 
-
 export interface AddItemProps {
   disabled?: boolean;
   theme?: AddItemTheme;

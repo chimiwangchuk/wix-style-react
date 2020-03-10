@@ -10,7 +10,6 @@ import Tooltip from '../Tooltip';
 import Proportion from '../Proportion';
 import { dataHooks } from './constants';
 import { parseColor, parseGradient, parseContrastColor } from './utils';
-import deprecationLog from '../utils/deprecationLog';
 
 const { iconSmall, iconMedium } = dataHooks;
 
@@ -27,8 +26,6 @@ class FillButton extends React.PureComponent {
     iconSize: PropTypes.oneOf(['small', 'medium']),
     /** components disable state */
     disabled: PropTypes.bool,
-    /** @deprecated tooltip content value */
-    tooltipContent: PropTypes.node,
     /** fill value in string. Hex or gradient */
     fill: PropTypes.string,
     /** tooltip common props */
@@ -38,16 +35,6 @@ class FillButton extends React.PureComponent {
   static defaultProps = {
     iconSize: 'small',
   };
-
-  constructor(props) {
-    super(props);
-
-    if (props.hasOwnProperty('tooltipContent')) {
-      deprecationLog(
-        '<FillButton/> - tooltipContent prop is deprecated, use tooltipProps={{ content: ... }} instead.',
-      );
-    }
-  }
 
   _getBackground = fill => {
     const { disabled } = this.props;
@@ -80,7 +67,6 @@ class FillButton extends React.PureComponent {
       disabled,
       focusableOnBlur,
       focusableOnFocus,
-      tooltipContent,
       dataHook,
       fill,
       iconSize,
@@ -92,9 +78,7 @@ class FillButton extends React.PureComponent {
       <Tooltip
         appendTo="window"
         disabled={disabled}
-        content={tooltipContent}
         {...tooltipProps}
-        upgrade
         dataHook={dataHook}
         size="small"
       >

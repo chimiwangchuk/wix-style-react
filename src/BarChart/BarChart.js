@@ -95,7 +95,6 @@ class BarChart extends React.PureComponent {
         content={descriptionInfo}
         onShow={onDescriptionInfoShown}
         zIndex={5999}
-        upgrade
       >
         <div className={styles.value}>
           {showText && <AdaptiveHeading {...headingProps} emptyLast />}

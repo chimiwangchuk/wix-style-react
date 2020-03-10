@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TooltipCommonProps } from '../common'
+import { TooltipCommonProps } from '../common';
 
 export type InfoIconSize = 'small' | 'medium';
 

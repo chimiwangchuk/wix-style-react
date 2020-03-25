@@ -32,12 +32,7 @@
   }
 }
 
-.ampm-wrapper {
-  width: 30.3px; // Inferred from Zeplin spec.
-}
-
 .ampm {
-  margin: 0 3px;
   text-transform: uppercase;
 }
 
@@ -49,20 +44,15 @@
 }
 
 .input {
-  min-width: 120px;
-
-  > div {
-    justify-content: space-between;
+  div {
+    flex-grow: 1;
   }
 
   input {
-    max-width: 53.7px; // Inferred from Zeplin spec.
+    max-width: 53px;
   }
 }
 
-.suffix-wrapper {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.suffix-end-wrapper div {
+  flex-grow: 0;
 }

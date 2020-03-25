@@ -1402,6 +1402,10 @@ Tooltip no longer supports theme white, but white skin is available on Popover w
 > Warning #2: White Tooltip should be used only in cases when app background is dark - all other cases should have dark Tooltip.
 
 
+> Note:
+> - `content` prop value should be used within `<Popover.Content/>`.
+> - `children` prop value should be used within `<Popover.Element/>`.
+
 Here is an example of same functionality as Tooltip but with white skin using Popover:
 ```jsx
 class WhiteTooltip extends React.PureComponent {
@@ -1446,6 +1450,8 @@ class WhiteTooltip extends React.PureComponent {
 
 export default WhiteTooltip;
 ```
+
+
 
 ### Testkit
 Testkit was rewritten and is now async, which means you should `await` for every method invocation.

@@ -7,7 +7,6 @@ import AdaptiveHeading from '../utils/AdaptiveHeading';
 
 import styles from './BarChart.st.css';
 import dataHooks from './dataHooks';
-import deprecationLog from '../utils/deprecationLog';
 
 class BarChart extends React.PureComponent {
   static displayName = 'BarChart';
@@ -50,16 +49,6 @@ class BarChart extends React.PureComponent {
   state = {
     width: 0,
   };
-
-  constructor(props) {
-    super(props);
-
-    if (props.hasOwnProperty('deprecatedColors')) {
-      deprecationLog(
-        '<BarChart/> - deprecatedColors prop is deprecated. Just remove it, no other change required.',
-      );
-    }
-  }
 
   componentDidMount() {
     this.setState({

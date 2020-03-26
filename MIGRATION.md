@@ -1402,55 +1402,36 @@ Tooltip no longer supports theme white, but white skin is available on Popover w
 > Warning #2: White Tooltip should be used only in cases when app background is dark - all other cases should have dark Tooltip.
 
 
-> Note:
-> - `content` prop value should be used within `<Popover.Content/>`.
-> - `children` prop value should be used within `<Popover.Element/>`.
-
-Here is an example of same functionality as Tooltip but with white skin using Popover:
+Before:
 ```jsx
-class WhiteTooltip extends React.PureComponent {
-  constructor(props) {
-    super(props);
+<Tooltip content="Content">
+  <div>Trigger</div>
+</Tooltip>
+```
 
-    this.state = {
-      shown: false,
-    };
-  }
 
-  open() {
-    this.setState({ shown: true });
-  }
-
-  close() {
-    this.setState({ shown: false });
-  }
-
-  render() {
-    const { shown } = this.state;
-    const { children, content, textAlign, ...rest } = this.props;
-
-    return (
+After:
+```jsx
+() => {
+  const [shown, setShown] = React.useState(false);
+  const toggle = () => setShown(!shown);
+  return (
       <Popover
-        appendTo="window"
-        {...rest}
         shown={shown}
-        onMouseEnter={this.open}
-        onMouseLeave={this.close}
-        showArrow
+        onMouseEnter={toggle}
+        onMouseLeave={toggle}
+        placement="top"
         animate
+        showArrow
       >
-        <Popover.Element>{children}</Popover.Element>
+        <Popover.Element>Trigger</Popover.Element>
         <Popover.Content>
-          <div style={{ textAlign }}>{content}</div>
+          <div style={{padding: '12px 24px'}}>Content</div>
         </Popover.Content>
       </Popover>
     );
-  }
 }
-
-export default WhiteTooltip;
 ```
-
 
 
 ### Testkit

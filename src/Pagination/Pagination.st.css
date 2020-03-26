@@ -34,7 +34,6 @@
 
 .root:focus-visible .pagination::pageButton:focus,
 .root:focus-visible .pagination::navButton:focus{
-  outline: none;
   box-shadow: 0 0 0 3px value(F00);
   border-radius: 50%;
 }
@@ -72,4 +71,8 @@
 .pagination::gap {
   -st-mixin: button-common-mixin;
   color: value(D10);
+}
+
+:global([dir='rtl']) .arrow {
+  transform: scaleX(-1);
 }

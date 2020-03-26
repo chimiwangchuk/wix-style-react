@@ -10,6 +10,7 @@
 
 // Override <Input>'s default focus style
 .input div {
+  background-color: transparent !important;
   border-color: transparent !important;
   box-shadow: none !important;
 }

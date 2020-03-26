@@ -65,7 +65,6 @@ function InputWithAllProps() {
       textOverflow="clip"
       tooltipPlacement="bottom"
       type="text"
-      updateControlledOnClear
       value="value"
       pattern="some pattern"
       withSelection

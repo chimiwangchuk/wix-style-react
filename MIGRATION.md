@@ -568,6 +568,11 @@ Props:
   For more information and examples go to [help prop](#help-prop) section.
 - removed sub component `<Input.Units/>` use `<Input.Affix/>` component instead
 - removed `magnifyingGlass` use `<Input.Affix/>` or `<Search/>` component instead. (see example below)
+- removed `updateControlledOnClear` - refer to `showClearButton` change of behavior.
+
+Behavior:
+- `showClearButton` - previously, clicking on the clear button would have trigger *both* `onChange()` *and* `onClear()`.<br/>
+  Now, clicking on the clear button will trigger *only* `onClear()`.
 
 Testkit:
 - removed `hasHelp`

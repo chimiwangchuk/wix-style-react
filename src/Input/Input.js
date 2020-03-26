@@ -7,7 +7,6 @@ import IconAffix from './IconAffix';
 import Affix from './Affix';
 import Group from './Group';
 import InputSuffix, { getVisibleSuffixCount } from './InputSuffix';
-import deprecationLog from '../utils/deprecationLog';
 
 import styles from './Input.scss';
 import { InputContext } from './InputContext';
@@ -29,7 +28,6 @@ class Input extends Component {
   constructor(props) {
     super(props);
     this._isMounted = false;
-    this.logDeprecations(props);
   }
 
   componentDidMount() {
@@ -55,18 +53,6 @@ class Input extends Component {
 
     this.isComposing = isComposing;
   };
-
-  logDeprecations(props) {
-    if (
-      this._isClearFeatureEnabled &&
-      this._isControlled &&
-      !props.updateControlledOnClear
-    ) {
-      deprecationLog(
-        `<Input/> - Clearing the value in a controlled component through onChange() will be deprecated in next major version. Pass updateControlledOnClear prop and use the onClear() callback to apply the new behavior`,
-      );
-    }
-  }
 
   get _isClearFeatureEnabled() {
     return !!this.props.onClear || !!this.props.clearButton;
@@ -313,19 +299,10 @@ class Input extends Component {
    * @param event delegated to the onClear call
    */
   clear = event => {
-    const { onClear, updateControlledOnClear } = this.props;
+    const { onClear } = this.props;
 
-    if (updateControlledOnClear) {
-      if (!this._isControlled) {
-        this.input.value = '';
-      }
-    } else {
-      /* an older implementation that has a hack, it's currently enabled by default for backward compatibility
-       * see https://github.com/wix/wix-style-react/issues/3122
-       */
-      const prevValue = this.input.value;
+    if (!this._isControlled) {
       this.input.value = '';
-      prevValue && this._triggerOnChangeHandlerOnClearEvent(event);
     }
 
     onClear && onClear(event);
@@ -382,7 +359,6 @@ Input.defaultProps = {
   maxLength: 524288,
   withSelection: false,
   clearButton: false,
-  updateControlledOnClear: false,
   hideStatusSuffix: false,
 };
 
@@ -545,11 +521,6 @@ Input.propTypes = {
         PropTypes.elementType,
       ])
     : PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
-
-  /** Don't call onChange on a controlled Input when user clicks the clear button.
-   *  See https://github.com/wix/wix-style-react/issues/3122
-   */
-  updateControlledOnClear: PropTypes.bool,
 
   /** Pattern the value must match to be valid (regex) */
   pattern: PropTypes.string,

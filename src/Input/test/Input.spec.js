@@ -420,16 +420,6 @@ describe('Input', () => {
         expect(await driver.isFocus()).toBe(true);
       });
 
-      it('should trigger onChange on clearing as if input just emptied', async () => {
-        const onChange = jest.fn();
-        const { driver } = render(
-          <Input onChange={onChange} value="some value" clearButton />,
-        );
-        await driver.clickClear();
-        expect(onChange).toHaveBeenCalledTimes(1);
-        expect(onChange.mock.calls[0][0].target.value).toBe('');
-      });
-
       it('should trigger onClear when clicking the clear button', async () => {
         const onClear = jest.fn();
         const { driver } = render(
@@ -440,32 +430,11 @@ describe('Input', () => {
         expect(onClear.mock.calls[0][0].target.value).toBe('');
       });
 
-      describe('clear method', () => {
-        it('should call onChange with empty value after calling clear', async () => {
-          const spy = jest.fn();
-          const wrapper = mount(<Input value="foo" onChange={spy} />);
-          wrapper.instance().clear();
-          expect(spy.mock.calls[0][0].target.value).toBe('');
-        });
-
-        it('should NOT call onChange if the input was already empty', async () => {
-          const spy = jest.fn();
-          const wrapper = mount(<Input value="" onChange={spy} />);
-          wrapper.instance().clear();
-          expect(spy.mock.calls.length).toBe(0);
-        });
-      });
-
-      describe('updateControlledOnClear is true', () => {
+      describe('clearButton triggers onChange', () => {
         it('should NOT trigger onChange on clearing', async () => {
           const onChange = jest.fn();
           const { driver } = render(
-            <Input
-              onChange={onChange}
-              value="some value"
-              clearButton
-              updateControlledOnClear
-            />,
+            <Input onChange={onChange} value="some value" clearButton />,
           );
           await driver.clickClear();
           expect(onChange).toHaveBeenCalledTimes(0);
@@ -474,12 +443,7 @@ describe('Input', () => {
         it('should trigger onClear on clearing', async () => {
           const onClear = jest.fn();
           const { driver } = render(
-            <Input
-              onClear={onClear}
-              value="some value"
-              clearButton
-              updateControlledOnClear
-            />,
+            <Input onClear={onClear} value="some value" clearButton />,
           );
           await driver.clickClear();
           expect(onClear).toHaveBeenCalledTimes(1);

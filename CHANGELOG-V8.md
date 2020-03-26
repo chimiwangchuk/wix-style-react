@@ -157,6 +157,7 @@ Props:
 - removed `help` & `helpMessage`
 - removed sub component `<Input.Units/>`
 - removed `magnifyingGlass`
+- removed `updateControlledOnClear`
 
 Testkit:
 - removed `hasHelp`

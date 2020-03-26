@@ -54,7 +54,6 @@ export interface InputProps {
   max?: number;
   step?: number;
   customInput?: React.ReactNode | Function;
-  updateControlledOnClear?: boolean;
   pattern?: string;
   inputRef?: (input: HTMLInputElement) => void;
 }

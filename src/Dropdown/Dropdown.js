@@ -7,7 +7,6 @@ import { allValidators, extendPropTypes } from '../utils/propTypes';
 import InputWithOptions from '../InputWithOptions/InputWithOptions';
 import DropdownLayout from '../DropdownLayout';
 import styles from './Dropdown.scss';
-import deprecationLog from '../utils/deprecationLog';
 
 const NO_SELECTED_ID = null;
 
@@ -24,24 +23,6 @@ class Dropdown extends InputWithOptions {
         defaultTo(props.selectedId, props.initialSelectedId),
       ),
     };
-
-    if (props.hasOwnProperty('error') || props.hasOwnProperty('errorMessage')) {
-      deprecationLog(
-        '<Dropdown/> - error and errorMessage props are deprecated. Please use status="error" and statusMessage instead.',
-      );
-    }
-
-    if (props.hasOwnProperty('help') || props.hasOwnProperty('helpMessage')) {
-      deprecationLog(
-        '<Dropdown/> - help and helpMessage props are deprecated. Please use <FormField/> as a wrapper instead.',
-      );
-    }
-
-    if (props.hasOwnProperty('theme') && props.theme !== 'normal') {
-      deprecationLog(
-        '<Dropdown/> - theme prop is deprecated, please contact us or your UX if needed.',
-      );
-    }
   }
 
   isSelectedIdControlled() {

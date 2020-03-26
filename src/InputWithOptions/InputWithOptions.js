@@ -13,7 +13,6 @@ import nativeStyles from './InputWithOptions.scss';
 import { placements } from '../Popover/constants';
 
 import Popover from '../Popover';
-import deprecationLog from '../utils/deprecationLog';
 
 export const DEFAULT_VALUE_PARSER = option => option.value;
 
@@ -49,27 +48,6 @@ class InputWithOptions extends Component {
       lastOptionsShow: 0,
       isEditing: false,
     };
-
-    if (props.hasOwnProperty('error') || props.hasOwnProperty('errorMessage')) {
-      deprecationLog(
-        '<InputWithOptions/> - error and errorMessage props are deprecated. Please use status="error" and statusMessage instead.',
-      );
-    }
-
-    if (props.hasOwnProperty('help') || props.hasOwnProperty('helpMessage')) {
-      deprecationLog(
-        '<InputWithOptions/> - help and helpMessage props are deprecated. Please use <FormField/> as a wrapper instead.',
-      );
-    }
-
-    if (
-      props.hasOwnProperty('theme') &&
-      !['normal', 'tags'].includes(props.theme)
-    ) {
-      deprecationLog(
-        '<InputWithOptions/> - theme prop is deprecated, please contact us or your UX if needed.',
-      );
-    }
 
     this._onSelect = this._onSelect.bind(this);
     this._onFocus = this._onFocus.bind(this);

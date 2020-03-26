@@ -6,7 +6,7 @@ import { Animator } from 'wix-animations';
 import classNames from 'classnames';
 import defaultTo from 'lodash/defaultTo';
 import { VariableSizeList as List } from 'react-window';
-import { TooltipCommonProps } from '../common/PropTypes/TooltipCommon';
+import { TooltipCommonProps } from '../../common/PropTypes/TooltipCommon';
 
 import styles from './DataTable.scss';
 import InfiniteScroll from '../../utils/InfiniteScroll';

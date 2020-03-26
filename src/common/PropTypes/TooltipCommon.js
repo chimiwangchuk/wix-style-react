@@ -1,4 +1,4 @@
-import Tooltip from '../../Tooltip/TooltipNext/Tooltip';
+import Tooltip from '../../Tooltip/Tooltip';
 
 export const TooltipCommonProps = {
   appendTo: Tooltip.propTypes['appendTo'],

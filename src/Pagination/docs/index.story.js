@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   header,
   tabs,
@@ -9,6 +8,7 @@ import {
   divider,
   example as baseExample,
   code,
+  columns,
   playground,
   api,
   testkit,
@@ -18,6 +18,17 @@ import { storySettings } from '../test/storySettings';
 import allComponents from '../../../stories/utils/allComponents';
 
 import Pagination from '..';
+
+import * as examples from './examples';
+
+const liveCode = config =>
+  code({
+    previewProps: {
+      style: { backgroundColor: '#f0f4f7' },
+    },
+    components: allComponents,
+    ...config,
+  });
 
 const example = config => baseExample({ components: allComponents, ...config });
 
@@ -29,52 +40,55 @@ export default {
   componentPath: '..',
 
   componentProps: {
-    buttonText: 'Hello World!',
+    dataHook: storySettings.dataHook,
+    totalPages: 13,
+    currentPage: 5,
   },
-
-  exampleProps: {
-    // Put here presets of props, for more info:
-    // https://github.com/wix/wix-ui/blob/master/packages/wix-storybook-utils/docs/usage.md#using-list
-  },
-
   sections: [
     header({
+      issueUrl: 'https://github.com/wix/wix-style-react/issues/new',
       sourceUrl:
         'https://github.com/wix/wix-style-react/tree/master/src/Pagination/',
-      component: <Pagination buttonText="Click me!" />,
     }),
 
     tabs([
       tab({
         title: 'Description',
         sections: [
-          description({
-            title: 'Description',
-            text:
-              'This line here should briefly describe component in just a sentence or two. It should be short and easy to read.',
-          }),
+          columns([
+            description({
+              title: 'Description',
+              text: 'Pagination component used for navigating between pages.',
+            }),
+          ]),
 
-          importExample("import Pagination from 'wix-style-react/Pagination';"),
+          importExample("import { Pagination } from 'wix-style-react';"),
 
           divider(),
 
           title('Examples'),
 
           example({
-            title: 'Simple Usage',
-            text: 'A simple example with compact preview',
-            source: '<Pagination buttonText="Hello World!"/>',
+            title: 'Basic',
+            source: examples.basic,
           }),
 
-          code({
-            title: 'Full Interactive Preview',
-            description: 'A non compact version of same code example as above',
-            source: '<Pagination buttonText="Hello World!"/>',
-            components: { Pagination },
+          example({
+            title: 'Short',
+            source: examples.short,
+          }),
+
+          example({
+            title: 'Middle of pagination',
+            source: examples.long,
+          }),
+
+          example({
+            title: 'Full interactive',
+            source: examples.interactive,
           }),
         ],
       }),
-
       ...[
         { title: 'API', sections: [api()] },
         { title: 'Testkit', sections: [testkit()] },
